@@ -9,17 +9,16 @@ ThemeData getTheme(BuildContext context) => ThemeData(
             primary: ColorBlock.primary,
             surface: ColorBlock.primary,
           ),
-      scaffoldBackgroundColor: ColorBlock.lightPurple,
-      drawerTheme:
-          const DrawerThemeData(backgroundColor: ColorBlock.lightPurple),
+      scaffoldBackgroundColor: ColorBlock.white,
+      drawerTheme: const DrawerThemeData(backgroundColor: ColorBlock.white),
       appBarTheme: const AppBarTheme(
-        backgroundColor: ColorBlock.lightPurple,
+        backgroundColor: ColorBlock.white,
         elevation: 0,
         iconTheme: IconThemeData(color: ColorBlock.black),
       ),
       tabBarTheme: const TabBarTheme(
           labelColor: ColorBlock.primary,
-          unselectedLabelColor: ColorBlock.darkGrey),
+          unselectedLabelColor: ColorBlock.black),
       inputDecorationTheme: const InputDecorationTheme(
           iconColor: ColorBlock.primary,
           fillColor: ColorBlock.primary,

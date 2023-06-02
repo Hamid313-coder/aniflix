@@ -4,7 +4,7 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       default:
-        return;
+        return MaterialPageRoute(builder: (_) => const Scaffold());
     }
   }
 }
