@@ -1,4 +1,4 @@
-# flutter_anime_flix
+# flutter_movlix
 
 A new Flutter project.
 
