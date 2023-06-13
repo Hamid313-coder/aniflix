@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 export 'color_block.dart';
 export 'theme.dart';
+
+class TextStyles {
+  static TextStyle appbarStyle = TextStyle(
+      color: Colors.red,
+      fontSize: 32,
+      fontWeight: FontWeight.bold,
+      fontFamily: GoogleFonts.bebasNeue().fontFamily);
+
+  static const TextStyle primaryTitle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  );
+
+  static const TextStyle secondaryTitle = TextStyle(
+    fontSize: 16,
+  );
+  static const TextStyle secondaryTitle2 = TextStyle(
+    fontSize: 14,
+  );
+}
 
 /*
 SPACING SYSTEM (px)
