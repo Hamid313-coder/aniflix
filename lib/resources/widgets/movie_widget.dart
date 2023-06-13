@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/widgets/detail_bottom_sheet.dart';
 
-class AnimeWidget extends StatelessWidget {
+class MovieWidget extends StatelessWidget {
   // final Anime anime;
 
-  const AnimeWidget({
+  const MovieWidget({
     Key? key,
     // required this.anime,
   }) : super(key: key);

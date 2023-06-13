@@ -13,7 +13,7 @@ ThemeData getTheme(BuildContext context) => ThemeData(
       ),
       fontFamily: GoogleFonts.ubuntu().fontFamily,
       brightness: Brightness.dark,
-      canvasColor: ColorBlock.black,
-      colorScheme:  ColorScheme.dark(secondary: ColorBlock.red),
+      canvasColor: Colors.black.withOpacity(0.4),
+      colorScheme: const ColorScheme.dark(secondary: ColorBlock.red),
       iconTheme: const IconThemeData(color: ColorBlock.white),
     );
