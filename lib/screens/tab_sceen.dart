@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/screens/home_page.dart';
+import 'package:flutter_anime_flix/screens/search_screen.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({Key? key}) : super(key: key);
@@ -13,12 +14,9 @@ class _TabScreenState extends State<TabScreen> {
   int _currentIndex = 0;
   final pageController = PageController(initialPage: 0);
   static final List<Widget> _pages = [
-    HomePage(),
-    Scaffold(
-        body: Center(
-      child: Text("page 2"),
-    )),
-    Scaffold(
+    const HomePage(),
+    const SearchScreen(),
+    const Scaffold(
         body: Center(
       child: Text("page 3"),
     )),
@@ -29,9 +27,9 @@ class _TabScreenState extends State<TabScreen> {
         body: Stack(
           children: [
             PageView(
-              children: _pages,
               controller: pageController,
               physics: const NeverScrollableScrollPhysics(),
+              children: _pages,
             ),
             _buildAppBar(),
           ],

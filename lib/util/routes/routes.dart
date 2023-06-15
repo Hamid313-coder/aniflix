@@ -7,7 +7,9 @@ class Routes {
       case "/":
         return MaterialPageRoute(builder: (_) => const TabScreen());
       default:
-        return MaterialPageRoute(builder: (_) => const Scaffold());
+        return MaterialPageRoute(
+            builder: (_) =>
+                const Scaffold(body: Center(child: Text("Not Found!"))));
     }
   }
 }

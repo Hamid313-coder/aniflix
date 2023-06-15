@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/movie_widget.dart';
 import 'package:flutter_anime_flix/resources/widgets/shimmer.dart';
-import 'package:provider/provider.dart';
 
 class MovieByGnera extends StatefulWidget {
   final String gnera;
@@ -26,7 +25,7 @@ class _MovieByGneraState extends State<MovieByGnera>
     super.initState();
     isLoading = true;
     Future.delayed(
-        Duration(seconds: 5), () => setState(() => isLoading = false));
+        const Duration(seconds: 5), () => setState(() => isLoading = false));
   }
 
   @override
@@ -59,7 +58,7 @@ class _MovieByGneraState extends State<MovieByGnera>
                           height: size.height * 0.22,
                           width: size.width * 0.32,
                         )
-                      : MovieWidget(
+                      : const MovieWidget(
                           // anime: gnerasAnime[index],
                           );
                 }),
