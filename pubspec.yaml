@@ -27,6 +27,7 @@ dependencies:
   url_launcher: ^6.1.11
   path_drawing: ^1.0.1
   shimmer: ^3.0.0
+  youtube_player_flutter: ^8.1.2
  
 
 dev_dependencies:
