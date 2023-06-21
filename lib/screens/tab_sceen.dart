@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
+import 'package:flutter_anime_flix/screens/favourites_screen.dart';
 import 'package:flutter_anime_flix/screens/home_page.dart';
 import 'package:flutter_anime_flix/screens/search_screen.dart';
 
@@ -16,10 +17,7 @@ class _TabScreenState extends State<TabScreen> {
   static final List<Widget> _pages = [
     const HomePage(),
     const SearchScreen(),
-    const Scaffold(
-        body: Center(
-      child: Text("page 3"),
-    )),
+    const FavouritesScreen(),
   ];
   @override
   Widget build(BuildContext context) {
