@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_anime_flix/resources/widgets/episode_tile.dart';
+import 'package:flutter_anime_flix/resources/widgets/eposide_tile.dart';
 
 class EpisodesList extends StatefulWidget {
   const EpisodesList({

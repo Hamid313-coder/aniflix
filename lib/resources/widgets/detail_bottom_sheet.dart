@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/button.dart';
-import 'package:provider/provider.dart';
 
 class DetailBottomSheet extends StatelessWidget {
   // final Anime anime;
@@ -50,7 +49,7 @@ class DetailBottomSheet extends StatelessWidget {
                             ConstrainedBox(
                               constraints:
                                   BoxConstraints(maxWidth: size.width * 0.4),
-                              child: Text(
+                              child: const Text(
                                 "title",
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
@@ -60,14 +59,14 @@ class DetailBottomSheet extends StatelessWidget {
                             const SizedBox(
                               height: 8,
                             ),
-                            Text(
+                            const Text(
                               'Movie',
                               style: TextStyles.secondaryTitle,
                             ),
                             const SizedBox(
                               height: 8,
                             ),
-                            Text(
+                            const Text(
                               'test Text',
                               maxLines: 3,
                             ),
@@ -113,17 +112,18 @@ class DetailBottomSheet extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).pushNamed(
-                  //   '/detailscreen',
-                  //   arguments: json.encode(
-                  //     {
-                  //       'id': anime.malId,
-                  //       'type': 0,
-                  //     },
-                  //   ),
-                  // );
+                  Navigator.of(context).pushNamed(
+                    '/detailscreen',
+                    arguments: json.encode(
+                      {
+                        // 'id': anime.malId,
+                        'type': 0,
+                      },
+                    ),
+                  );
                 },
-                child: Padding(
+                child: Container(
+                  color: Colors.transparent,
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: const [
@@ -155,7 +155,7 @@ class DetailBottomSheet extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        image: DecorationImage(
+        image: const DecorationImage(
           image: NetworkImage(
             "https://images.unsplash.com/photo-1675426513962-1db7e4c707c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
           ),
@@ -167,12 +167,12 @@ class DetailBottomSheet extends StatelessWidget {
 }
 
 class SavedBottomSheet extends StatelessWidget {
-  final int id;
-  final String title;
-  final String image;
+  // final int id;
+  // final String title;
+  // final String image;
   const SavedBottomSheet(
-      {Key? key, required this.id, required this.title, required this.image})
-      : super(key: key);
+      // {Key? key, required this.id, required this.title, required this.image}
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -209,15 +209,18 @@ class SavedBottomSheet extends StatelessWidget {
                     height: 180,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                            image: NetworkImage(image), fit: BoxFit.cover)),
+                        image: const DecorationImage(
+                            image: NetworkImage(
+                              "https://images.unsplash.com/photo-1675426513962-1db7e4c707c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                            ),
+                            fit: BoxFit.cover)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: size.width * 0.5),
-                      child: Text(
-                        title,
+                      child: const Text(
+                        "headline 6",
                         style: TextStyles.primaryTitle,
                       ),
                     ),
@@ -231,11 +234,11 @@ class SavedBottomSheet extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.red,
                           padding: const EdgeInsets.all(8),
-                          onPrimary: Colors.red,
+                          backgroundColor: Colors.transparent,
                           shape: const RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.red)),
-                          primary: Colors.transparent),
+                              side: BorderSide(color: Colors.red))),
                       onPressed: () {
                         // wishlistProvider.removeFromList(id).then((value) {
                         //   showCustomSnackBar(context, "Removed!!");
@@ -252,18 +255,18 @@ class SavedBottomSheet extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
                               padding: const EdgeInsets.all(8),
+                              backgroundColor: Colors.red,
                               shape: const RoundedRectangleBorder(
-                                  side: BorderSide(color: Colors.red)),
-                              onPrimary: Colors.white,
-                              primary: Colors.red),
+                                  side: BorderSide(color: Colors.red))),
                           onPressed: () {
-                            // Navigator.pop(context);
-                            // Navigator.pushNamed(context, '/detailscreen',
-                            //     arguments: json.encode({
-                            //       'id': id,
-                            //       'type': ResultType.saved.index,
-                            //     }));
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/detailscreen',
+                                arguments: json.encode({
+                                  'id': 21,
+                                  'type': 3,
+                                }));
                           },
                           icon: const Icon(Icons.play_arrow),
                           label: const Text("Watch Now")),

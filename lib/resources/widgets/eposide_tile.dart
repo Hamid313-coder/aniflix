@@ -28,7 +28,7 @@ class _EpisodeTileState extends State<EpisodeTile> {
               ),
             ),
             leading: Image.network(
-              "",
+              "https://images.unsplash.com/photo-1518929458119-e5bf444c30f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
               fit: BoxFit.cover,
               height: 70,
               width: 100,
@@ -38,7 +38,7 @@ class _EpisodeTileState extends State<EpisodeTile> {
             trailing: const Icon(Icons.download_sharp),
           ),
           FutureBuilder(
-              future: Future.value("john wick"),
+              future: Future.value("Back Stage"),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     !snapshot.hasError) {
