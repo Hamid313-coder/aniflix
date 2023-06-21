@@ -28,6 +28,7 @@ dependencies:
   path_drawing: ^1.0.1
   shimmer: ^3.0.0
   youtube_player_flutter: ^8.1.2
+  flutter_launcher_icons: ^0.12.0
  
 
 dev_dependencies:
@@ -35,23 +36,19 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.3.3
   mobx_codegen: ^2.1.1
-
   flutter_lints: ^2.0.0
 
-flutter_native_splash:
-  color: "#EEEEEE"
-  image: "assets/images/salam.png"
-  color_dark: "#EEEEEE"
-  image_dark: assets/images/salam.png
-  # branding_dark: assets/images/dark_spalsh.png
-  android_gravity: center
-  android_12:
-    image: "assets/images/salam.png"
-    icon_background_color: "#2F2E33"
-    image_dark: assets/images/salam.png
-    icon_background_color_dark: "#2F2E33"
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/m.png"
+  adaptive_icon_background: "#000000"
 
-  web: false
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#000000"
+  image: "assets/images/m.png"
 
 
 
