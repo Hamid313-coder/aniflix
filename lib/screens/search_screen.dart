@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/filter_bottom_sheet.dart';
+import 'package:flutter_anime_flix/screens/all_movie_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -21,7 +22,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final searchProvider = Provider.of<SearchProvider>(context);
     return Scaffold(
       body: Column(
         children: [
@@ -30,29 +30,15 @@ class _SearchScreenState extends State<SearchScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: Wrap(
-                children: [
-                  1,
-                  1,
-                  1,
-                  1,
-                  1,
-                ]
+                children: genres
                     .map((e) => GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/allanimescreen',
-                              arguments: json.encode(
-                                {
-                                  'query': null,
-                                  'gnera': "action",
-                                },
-                              ),
-                            );
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => AllMovieScreen(gnere: e)));
                           },
                           child: Container(
                             padding: const EdgeInsets.all(24),
-                            margin: const EdgeInsets.all(8),
+                            margin: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.white,
@@ -60,9 +46,9 @@ class _SearchScreenState extends State<SearchScreen> {
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Text(
-                              "name",
-                              style: TextStyle(
+                            child: Text(
+                              e["name"],
+                              style: const TextStyle(
                                 fontSize: 18,
                               ),
                               textAlign: TextAlign.center,

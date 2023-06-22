@@ -74,7 +74,7 @@ class DetailBottomSheet extends StatelessWidget {
                               direction: Axis.horizontal,
                               allowHalfRating: true,
                               itemCount: 10,
-                              itemSize: 24,
+                              itemSize: 16,
                               itemPadding:
                                   const EdgeInsets.symmetric(horizontal: 4.0),
                               itemBuilder: (context, _) => const Icon(
