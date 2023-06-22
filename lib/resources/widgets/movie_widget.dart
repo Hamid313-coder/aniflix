@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/widgets/detail_bottom_sheet.dart';
 
 class MovieWidget extends StatelessWidget {
-  // final Anime anime;
-
+  final Map<String, dynamic> movie;
   const MovieWidget({
     Key? key,
-    // required this.anime,
+    required this.movie,
   }) : super(key: key);
 
   @override
@@ -18,9 +17,7 @@ class MovieWidget extends StatelessWidget {
         context: context,
         barrierColor: Colors.transparent,
         builder: (context) {
-          return DetailBottomSheet(
-              // anime: anime,
-              );
+          return DetailBottomSheet(movie: movie);
         },
       ),
       child: Container(
@@ -32,8 +29,7 @@ class MovieWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           image: DecorationImage(
             image: NetworkImage(
-              "https://images.unsplash.com/photo-1675426513962-1db7e4c707c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-            ),
+                "https://image.tmdb.org/t/p/w500/${movie["poster_path"]}"),
             fit: BoxFit.cover,
           ),
         ),
