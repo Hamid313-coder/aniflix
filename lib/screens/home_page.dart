@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_anime_flix/repositories/movies.dart';
+import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/button.dart';
-import 'package:flutter_anime_flix/resources/widgets/detail_bottom_sheet.dart';
 import 'package:flutter_anime_flix/resources/widgets/movie_by_gnera.dart';
 import 'package:flutter_anime_flix/resources/widgets/shimmer.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,14 +16,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-  bool isLoading = false;
+  bool isLoading = true;
+
+  List<Map<String, dynamic>> movies = [];
+
+  final moviesRepo = MovieRepositories();
 
   @override
   void initState() {
     super.initState();
-    isLoading = true;
-    Future.delayed(
-        Duration(seconds: 5), () => setState(() => isLoading = false));
+    // isLoading = true;
+
+    moviesRepo.getMoviesById(genres[0]["id"]).then((value) {
+      movies = value;
+      movies.shuffle();
+      setState(() => isLoading = false);
+    });
   }
 
   @override
@@ -32,26 +42,9 @@ class _HomePageState extends State<HomePage>
       body: ListView(
         children: [
           _buildBanner(isLoading),
-          const MovieByGnera(
-            gnera: "Action",
-            id: 1,
-          ),
-          const MovieByGnera(
-            gnera: "Adventure",
-            id: 2,
-          ),
-          const MovieByGnera(
-            gnera: "Romance",
-            id: 22,
-          ),
-          const MovieByGnera(
-            gnera: "Sci-Fi",
-            id: 22,
-          ),
-          const MovieByGnera(
-            gnera: "Comedy",
-            id: 4,
-          ),
+          ...genres
+              .map((e) => MovieByGnera(gnera: e["name"], id: e["id"]))
+              .toList(),
         ],
       ),
     );
@@ -70,8 +63,7 @@ class _HomePageState extends State<HomePage>
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
-                        "https://images.unsplash.com/photo-1675426513962-1db7e4c707c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                      ),
+                          "https://image.tmdb.org/t/p/w500/${movies[Random().nextInt(6)]["poster_path"]}"),
                       fit: BoxFit.fitWidth,
                     ),
                   )),
@@ -119,9 +111,10 @@ class _HomePageState extends State<HomePage>
                           showBottomSheet(
                             context: context,
                             builder: (context) {
-                              return DetailBottomSheet(
-                                  // anime: animeProvider.bannerAnime!,
-                                  );
+                              return Container();
+                              // const DetailBottomSheet(
+                              //     // anime: animeProvider.bannerAnime!,
+                              //     );
                             },
                           );
                         },
