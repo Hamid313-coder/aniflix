@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_anime_flix/locator.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/util/routes/routes.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
