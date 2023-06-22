@@ -3,10 +3,10 @@ import 'package:flutter_anime_flix/resources/widgets/detail_bottom_sheet.dart';
 
 class MovieWidget extends StatelessWidget {
   final Map<String, dynamic> movie;
-  const MovieWidget({
-    Key? key,
-    required this.movie,
-  }) : super(key: key);
+  final List<Map<String, dynamic>> recommendedMovies;
+  const MovieWidget(
+      {Key? key, required this.movie, required this.recommendedMovies})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,10 @@ class MovieWidget extends StatelessWidget {
         context: context,
         barrierColor: Colors.transparent,
         builder: (context) {
-          return DetailBottomSheet(movie: movie);
+          return DetailBottomSheet(
+            movie: movie,
+            recommendedMovies: recommendedMovies,
+          );
         },
       ),
       child: Container(

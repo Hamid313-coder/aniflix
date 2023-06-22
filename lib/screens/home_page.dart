@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/repositories/movies.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/button.dart';
+import 'package:flutter_anime_flix/resources/widgets/detail_bottom_sheet.dart';
 import 'package:flutter_anime_flix/resources/widgets/movie_by_gnera.dart';
 import 'package:flutter_anime_flix/resources/widgets/shimmer.dart';
+import 'package:flutter_anime_flix/screens/video_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,6 +22,8 @@ class _HomePageState extends State<HomePage>
 
   List<Map<String, dynamic>> movies = [];
 
+  Map<String, dynamic> randomMovie = {};
+
   final moviesRepo = MovieRepositories();
 
   @override
@@ -30,6 +34,7 @@ class _HomePageState extends State<HomePage>
     moviesRepo.getMoviesById(genres[0]["id"]).then((value) {
       movies = value;
       movies.shuffle();
+      randomMovie = movies[Random().nextInt(6)];
       setState(() => isLoading = false);
     });
   }
@@ -63,7 +68,7 @@ class _HomePageState extends State<HomePage>
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
-                          "https://image.tmdb.org/t/p/w500/${movies[Random().nextInt(6)]["poster_path"]}"),
+                          "https://image.tmdb.org/t/p/w500/${randomMovie["poster_path"]}"),
                       fit: BoxFit.fitWidth,
                     ),
                   )),
@@ -102,7 +107,11 @@ class _HomePageState extends State<HomePage>
                       ),
                       CustomButtons().textButton(
                         label: 'Play',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) =>
+                                  VideoScreen(title: randomMovie["title"])));
+                        },
                         icon: Icons.play_arrow,
                       ),
                       CustomButtons().iconButton(
@@ -111,10 +120,10 @@ class _HomePageState extends State<HomePage>
                           showBottomSheet(
                             context: context,
                             builder: (context) {
-                              return Container();
-                              // const DetailBottomSheet(
-                              //     // anime: animeProvider.bannerAnime!,
-                              //     );
+                              return DetailBottomSheet(
+                                movie: randomMovie,
+                                recommendedMovies: movies,
+                              );
                             },
                           );
                         },

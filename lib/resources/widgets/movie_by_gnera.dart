@@ -67,6 +67,7 @@ class _MovieByGneraState extends State<MovieByGnera>
                         )
                       : MovieWidget(
                           movie: movies[index],
+                          recommendedMovies: movies,
                         );
                 }),
           )

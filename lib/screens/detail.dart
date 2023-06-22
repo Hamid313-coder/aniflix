@@ -4,11 +4,15 @@ import 'package:flutter_anime_flix/resources/constants/config.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/button.dart';
 import 'package:flutter_anime_flix/resources/widgets/recommendations_widget.dart';
+import 'package:flutter_anime_flix/screens/video_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieDetail extends StatefulWidget {
   final Map<String, dynamic> movie;
-  const MovieDetail({Key? key, required this.movie}) : super(key: key);
+  final List<Map<String, dynamic>> recommendedMovies;
+  const MovieDetail(
+      {Key? key, required this.movie, required this.recommendedMovies})
+      : super(key: key);
 
   @override
   _MovieDetailState createState() => _MovieDetailState();
@@ -16,7 +20,7 @@ class MovieDetail extends StatefulWidget {
 
 class _MovieDetailState extends State<MovieDetail> with RouteAware {
   late YoutubePlayerController controller;
-  bool _showEpisodes = true;
+  final bool _showEpisodes = true;
   bool _fulldesc = false;
   bool isLoading = true;
   final moviesRepo = MovieRepositories();
@@ -117,11 +121,11 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
   }
 
   Widget _buildTitle() {
-    return const Padding(
-      padding: EdgeInsets.all(4.0),
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
       child: Text(
-        "movie title",
-        style: TextStyle(
+        widget.movie["title"],
+        style: const TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
@@ -137,8 +141,8 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
       ),
       child: Row(
         children: [
-          const Text(
-            "Jun 15, 2022",
+          Text(
+            widget.movie["release_date"],
             style: TextStyles.secondaryTitle,
           ),
           Padding(
@@ -148,7 +152,7 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
                 color: Colors.grey.shade800,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text("4.4"),
+              child: Text(widget.movie["vote_average"].toString()),
             ),
           ),
         ],
@@ -161,7 +165,10 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
       children: [
         CustomButtons().textButton(
           label: 'Play',
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => VideoScreen(title: widget.movie["title"])));
+          },
           icon: Icons.play_arrow,
         ),
         CustomButtons().textButton(
@@ -182,7 +189,7 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Lorem ipsume has good and stylish ipsume has good and stylish ipsume has good and stylish ipsume has good and stylish.",
+              widget.movie["overview"],
               maxLines: _fulldesc ? null : 3,
             ),
             GestureDetector(
@@ -253,8 +260,8 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
             )
           ],
         ),
-        const RecommendedMovies(
-          movieId: 23,
+        RecommendedMovies(
+          recommendedMovies: widget.recommendedMovies,
         )
       ],
     );
@@ -264,24 +271,13 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
     String title,
     bool value,
   ) {
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _showEpisodes = !_showEpisodes;
-        });
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border(
-            top: (value)
-                ? BorderSide(color: Colors.red.shade800, width: 4)
-                : BorderSide.none,
-          ),
-        ),
-        child: Text(title),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.red.shade800, width: 4)),
       ),
+      child: Text(title),
     );
   }
 }
