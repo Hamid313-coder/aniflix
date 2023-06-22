@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_anime_flix/repositories/movies.dart';
 import 'package:flutter_anime_flix/resources/constants/config.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/button.dart';
-import 'package:flutter_anime_flix/resources/widgets/episodes_list.dart';
 import 'package:flutter_anime_flix/resources/widgets/recommendations_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieDetail extends StatefulWidget {
-  const MovieDetail({
-    Key? key,
-  }) : super(key: key);
+  final Map<String, dynamic> movie;
+  const MovieDetail({Key? key, required this.movie}) : super(key: key);
 
   @override
   _MovieDetailState createState() => _MovieDetailState();
@@ -17,43 +16,30 @@ class MovieDetail extends StatefulWidget {
 
 class _MovieDetailState extends State<MovieDetail> with RouteAware {
   late YoutubePlayerController controller;
-  bool loading = false;
   bool _showEpisodes = true;
   bool _fulldesc = false;
-  final bool _trailerAvaliable = false;
-
-  getResult() async {
-    setState(() {
-      loading = true;
-    });
-    await Future.delayed(const Duration(seconds: 3), () {});
-    setState(() {
-      loading = false;
-    });
-  }
+  bool isLoading = true;
+  final moviesRepo = MovieRepositories();
 
   @override
   void initState() {
     super.initState();
 
-    controller = YoutubePlayerController(
-      initialVideoId: "JY_d0vf-rfw",
-      flags: const YoutubePlayerFlags(
-        autoPlay: true,
-        mute: false,
-        isLive: false,
-        controlsVisibleAtStart: false,
-        loop: false,
-        forceHD: false,
-      ),
-    );
-    controller.addListener(
-      () {
-        if (controller.value.hasError) {
-          setState(() {});
-        }
-      },
-    );
+    moviesRepo.getMovieTeaserById(widget.movie["id"]).then((value) {
+      controller = YoutubePlayerController(
+        initialVideoId: value,
+        flags: const YoutubePlayerFlags(
+          autoPlay: true,
+          mute: false,
+          isLive: false,
+          controlsVisibleAtStart: false,
+          loop: false,
+          forceHD: false,
+        ),
+      );
+
+      setState(() => isLoading = false);
+    });
   }
 
   @override
@@ -87,7 +73,7 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Colors.black,
-      body: (loading)
+      body: (isLoading)
           ? const Center(
               child: CircularProgressIndicator(
                 color: Colors.red,
@@ -111,18 +97,11 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        (!_trailerAvaliable)
-            ? Image.network(
-                "https://images.unsplash.com/photo-1687186735445-df877226fae9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-                fit: BoxFit.cover,
-                width: size.width,
-                height: size.height * 0.3,
-              )
-            : YoutubePlayer(
-                controller: controller,
-                showVideoProgressIndicator: false,
-                liveUIColor: Colors.red,
-              ),
+        YoutubePlayer(
+          controller: controller,
+          showVideoProgressIndicator: false,
+          liveUIColor: Colors.red,
+        ),
         Positioned.fill(
             child: GestureDetector(
           onTap: () => setState(
@@ -269,20 +248,14 @@ class _MovieDetailState extends State<MovieDetail> with RouteAware {
         Row(
           children: [
             _buildSectionButton(
-              'EPISODES',
-              _showEpisodes,
-            ),
-            _buildSectionButton(
               'MORE LIKE THIS',
               !_showEpisodes,
             )
           ],
         ),
-        _showEpisodes
-            ? const EpisodesList()
-            : const RecommendedAnimes(
-                animeId: 23,
-              )
+        const RecommendedMovies(
+          movieId: 23,
+        )
       ],
     );
   }

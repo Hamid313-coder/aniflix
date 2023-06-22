@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_anime_flix/resources/widgets/movie_widget.dart';
 
-class RecommendedAnimes extends StatefulWidget {
-  final int animeId;
+class RecommendedMovies extends StatefulWidget {
+  final int movieId;
 
-  const RecommendedAnimes({
+  const RecommendedMovies({
     Key? key,
-    required this.animeId,
+    required this.movieId,
   }) : super(key: key);
 
   @override
-  State<RecommendedAnimes> createState() => _RecommendedAnimesState();
+  State<RecommendedMovies> createState() => _RecommendedMoviesState();
 }
 
-class _RecommendedAnimesState extends State<RecommendedAnimes> {
+class _RecommendedMoviesState extends State<RecommendedMovies> {
   @override
   void initState() {
     super.initState();
@@ -29,9 +28,11 @@ class _RecommendedAnimesState extends State<RecommendedAnimes> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return const MovieWidget(
-            // anime: ap.recommended[index],
-            );
+        return Container();
+
+        // const MovieWidget(
+        //     // anime: ap.recommended[index],
+        //     );
       },
       itemCount: 7,
     );

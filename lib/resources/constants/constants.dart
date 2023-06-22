@@ -7,7 +7,18 @@ export 'theme.dart';
 RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 const String placerholder =
-    "https://dummyimage.com/600x800/0a090a/fa0810.jpg&text=ANIFLIX";
+    "https://dummyimage.com/600x800/0a090a/fa0810.jpg&text=MOVLIX";
+
+const List<Map<String, dynamic>> genres = [
+  {"id": 28, "name": "Action"},
+  {"id": 12, "name": "Adventure"},
+  {"id": 16, "name": "Animation"},
+  {"id": 35, "name": "Comedy"},
+  {"id": 80, "name": "Crime"},
+  {"id": 99, "name": "Documentary"},
+  {"id": 18, "name": "Drama"},
+  {"id": 878, "name": "Science Fiction"},
+];
 
 class TextStyles {
   static TextStyle appbarStyle = TextStyle(
