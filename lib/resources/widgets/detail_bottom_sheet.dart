@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_flix/resources/constants/constants.dart';
 import 'package:flutter_anime_flix/resources/widgets/button.dart';
+import 'package:flutter_anime_flix/screens/detail.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailBottomSheet extends StatelessWidget {
-  // final Anime anime;
+  final Map<String, dynamic> movie;
 
   const DetailBottomSheet({
     Key? key,
-    // required this.anime,
+    required this.movie,
   }) : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class DetailBottomSheet extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildImage(size),
+                    _buildImage(size, image: movie["poster_path"]),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -49,8 +51,8 @@ class DetailBottomSheet extends StatelessWidget {
                             ConstrainedBox(
                               constraints:
                                   BoxConstraints(maxWidth: size.width * 0.4),
-                              child: const Text(
-                                "title",
+                              child: Text(
+                                movie["title"],
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.primaryTitle,
@@ -59,16 +61,27 @@ class DetailBottomSheet extends StatelessWidget {
                             const SizedBox(
                               height: 8,
                             ),
-                            const Text(
-                              'Movie',
+                            Text(
+                              movie["release_date"],
                               style: TextStyles.secondaryTitle,
                             ),
                             const SizedBox(
                               height: 8,
                             ),
-                            const Text(
-                              'test Text',
-                              maxLines: 3,
+                            RatingBar.builder(
+                              initialRating: movie["vote_average"],
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 10,
+                              itemSize: 24,
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.red,
+                              ),
+                              onRatingUpdate: (rating) => print(rating),
                             ),
                           ],
                         ),
@@ -112,15 +125,8 @@ class DetailBottomSheet extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(
-                    '/detailscreen',
-                    arguments: json.encode(
-                      {
-                        // 'id': anime.malId,
-                        'type': 0,
-                      },
-                    ),
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => MovieDetail(movie: movie)));
                 },
                 child: Container(
                   color: Colors.transparent,
@@ -131,7 +137,7 @@ class DetailBottomSheet extends StatelessWidget {
                       SizedBox(
                         width: 8,
                       ),
-                      Text('Episodes & Info'),
+                      Text('Detail'),
                       Spacer(),
                       Icon(Icons.arrow_forward_ios_sharp)
                     ],
@@ -146,7 +152,7 @@ class DetailBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(size) {
+  Widget _buildImage(size, {required String image}) {
     return Container(
       margin: const EdgeInsets.all(8),
       constraints: BoxConstraints(
@@ -155,10 +161,8 @@ class DetailBottomSheet extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        image: const DecorationImage(
-          image: NetworkImage(
-            "https://images.unsplash.com/photo-1675426513962-1db7e4c707c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-          ),
+        image: DecorationImage(
+          image: NetworkImage("https://image.tmdb.org/t/p/w500/$image"),
           fit: BoxFit.cover,
         ),
       ),
