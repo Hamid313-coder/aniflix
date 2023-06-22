@@ -8,11 +8,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailBottomSheet extends StatelessWidget {
   final Map<String, dynamic> movie;
+  final List<Map<String, dynamic>> recommendedMovies;
 
-  const DetailBottomSheet({
-    Key? key,
-    required this.movie,
-  }) : super(key: key);
+  const DetailBottomSheet(
+      {Key? key, required this.movie, required this.recommendedMovies})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,10 @@ class DetailBottomSheet extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => MovieDetail(movie: movie)));
+                      builder: (_) => MovieDetail(
+                            movie: movie,
+                            recommendedMovies: recommendedMovies,
+                          )));
                 },
                 child: Container(
                   color: Colors.transparent,
